@@ -5,6 +5,10 @@ Established: October 11, 2026
 Phase: Proof of concept  
 Immediate milestone: Browser map → GitHub Pages test deployment → mobile GPS test on Zoo grounds
 
+## Version 0.1 update — October 11, 2026
+
+The owner confirmed GitHub repository `bigblue1932/philadelphia-zoo-map`, Leaflet.js, OpenStreetMap, and GitHub Pages. The v0.1 implementation includes an interactive Zoo-centered map, phone GPS detection/live tracking, an accuracy indicator, mobile controls, and permission/error handling. Official pedestrian pathways remain later work. Earlier unselected repository/map-stack statements below are superseded by this update. Broader requirements and draft acceptance criteria retain their existing status. Publication and Zoo-ground validation must be evidenced separately; see PROTOTYPE_V0_1.md.
+
 ## Purpose and vision
 
 Develop a low-cost, Waze-style visitor application for the Philadelphia Zoo: an interactive map combining visitor navigation with timely, crowdsourced animal sightings. Preserve accessibility, quieter visitor experiences, visitor notifications, and public safety as core product requirements.

@@ -2,6 +2,10 @@
 
 Established October 11, 2026. Approval here means project-owner approval, not official Zoo approval.
 
+## Version 0.1 scope confirmed October 11, 2026
+
+The owner selected `bigblue1932/philadelphia-zoo-map`, Leaflet.js, OpenStreetMap, and GitHub Pages. Version 0.1 includes an interactive Zoo-centered map, GPS detection, live tracking, reported accuracy, mobile controls, and permission/error handling. The official pedestrian pathway map is deferred. This supersedes the earlier statements that the repository and map stack remain unselected; other draft review points remain open. Implementation details and validation are recorded in PROTOTYPE_V0_1.md.
+
 | ID | Status | Decision or proposal | Evidence |
 | --- | --- | --- | --- |
 | D-001 | Confirmed | Independent, low-cost, Waze-style visitor-app proof of concept. | Owner initialization request, October 11, 2026. |
