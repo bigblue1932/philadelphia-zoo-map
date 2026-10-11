@@ -8,6 +8,13 @@
 - Five automated controller tests pass, covering updates, follow behavior, watch ID zero cleanup, late callbacks, permission retry, transient errors/recovery, stale/invalid fixes, insecure context, unsupported GPS, and library failure.
 - Added deployment/phone-test instructions and a loopback-only development server. No real GPS or Zoo-ground results are claimed. Deployment completion remains to be verified.
 
+### Publication verified
+
+- Pushed application release commit `f16f555d708d1255a97598bcb02f1db5cb099adc` to `main` and verified the remote revision.
+- Created GitHub Pages configuration using the existing GitHub credential: legacy branch deployment, `main`, `/`. Build request accepted.
+- Verified https://bigblue1932.github.io/philadelphia-zoo-map/ in the browser: v0.1 page, working Leaflet map, Zoo basemap, attribution, and GPS controls visible. Desktop layout checked visually.
+- Phone viewport override did not take effect in the available browser. Mobile visual verification and real phone GPS/Zoo-ground testing remain pending; use the walkthrough in PROTOTYPE_V0_1.md.
+
 ## October 11, 2026 — Master project initialization
 
 - Owner requested six master documents, preservation of seven functional areas, GitHub backup preparation, and a draft PROJECT_MASTER.md for review.

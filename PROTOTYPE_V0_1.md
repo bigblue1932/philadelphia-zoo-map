@@ -2,6 +2,8 @@
 
 Built October 11, 2026 against repository baseline `b21bcc4`.
 
+Published and browser-verified: https://bigblue1932.github.io/philadelphia-zoo-map/ . Application release commit: `f16f555d708d1255a97598bcb02f1db5cb099adc`. Five automated controller checks passed. Desktop map rendering verified; real phone layout and GPS field testing remain pending.
+
 ## Run and publish
 
 The application is buildless: `index.html`, `styles.css`, `app.js`, and `.nojekyll` belong at the repository root. No API key, account login, or backend is needed. Leaflet 1.9.4 is pinned with integrity hashes. Internet access is required for the library and map tiles.
