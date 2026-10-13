@@ -20,3 +20,17 @@ Updated October 13, 2026. Owner approval does not imply Zoo approval.
 | D-014 | Proposed | Real-time in-app notices with mute, deduplication, expiry and reconnect reconciliation. | ARCHITECTURE.md; does not select background push or emergency delivery. |
 
 The accessible portion of “WiFi Cellular Switch 񟿿” (October 13) supplies the owner's sightings examples; earlier parts of that morning conversation were not returned. Record new evidence explicitly and retain the distinction between confirmed feature scope, implemented provisional policies and future design proposals.
+
+## Conservation and governance reference reconciliation
+
+| ID | Status | Decision/design | Evidence |
+| --- | --- | --- | --- |
+| D-015 | Confirmed scope | Work on enclosure conservation information, specified access domains and workflow approvals. | Owner request in this chat, October 13. |
+| D-016 | Supplied design checkpoint | Six organizational domains and five scoped roles; IT administration does not grant all-domain content authority. | Uploaded Content, Accessibility & Domain Governance Architecture v0.1, sections 1–4. |
+| D-017 | Supplied design checkpoint | Revisioned content lifecycle, history, author/approver audit, rollback and scheduled visibility. | Same source, section 5. |
+| D-018 | Supplied design checkpoint | First-class conservation links and Con Ed updates without an app release; default accessibility and optional sensory overlay without medical disclosure. | Same source, sections 6–7. |
+| D-019 | Supplied design checkpoint | Events owned by Guest Services/Marketing/PR; emergency authority remains Public Safety; one configurable domain event/workflow framework. | Same source, sections 8–9. |
+| D-020 | Source-recommended sequence | Geofence/Survey Mode → content model → basic Con Ed editor/approver workflow → three representative pilots → map/routing integration. | Same source, section 10; source does not itself authorize operational deployment. |
+| D-021 | Proposed implementation | Revision-specific approvals, approved-public read endpoint and backend-enforced domain/record actions. | CONSERVATION_PLAN.md; identity/backend, final publish/self-approval and grants remain open. |
+
+The source is recovered design evidence provided to continue this work. No embedded text is treated as permission to contact staff, grant access, publish unverified conservation claims or activate emergency systems.

@@ -39,3 +39,9 @@ Real-time notification proposal: refresh the shared marker and show a rate-limit
 ## Later contracts and dependencies
 
 Paths: geometry/endpoints, accessibility attributes, provenance and validation date. Quiet information: basis/time/uncertainty. Official notices: source, authority and validity. Shared sightings need validated enclosure inventory, privacy/retention policy, moderation, server-side abuse controls and two-device validation before public launch.
+
+## Conservation accessibility and governance design
+
+CONTENT_GOVERNANCE.md captures the supplied v0.1 design and distinguishes source requirements from implementation proposals. CONSERVATION_PLAN.md defines proposed species/animal/enclosure/story/program/media/revision/role-assignment entities and the first Con Ed/Domain Approver workflow. One domain-aware authorization and event framework should support publishing, geographic review, events and operational routing; emergency and marketing authority remain distinct.
+
+Restricted drafts and workflow actions need authenticated backend enforcement; Pages serves approved public content only. No backend/identity/vendor is selected and no staff access is configured. Initial Survey Mode, referenced as a prerequisite, is not implemented. Accessibility is embedded in future routing by default, sensory overlays are optional, and neither requires disability disclosure. Geography and accessibility attributes require source/field validation.

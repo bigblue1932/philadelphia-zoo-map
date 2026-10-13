@@ -28,3 +28,19 @@ Updated October 13, 2026. Implementation and field validation are tracked separa
 | B-22 | Next | Sightings integrity/privacy | Server-side validation/rate limits and moderation; minimized visitor data; no precise public visitor GPS; geofence never treated as attendance proof. |
 
 Implementation completion is not field acceptance. No backend, real shared report, validated enclosure inventory or confidence calculation exists yet.
+
+## Conservation governance and survey work
+
+| ID | Status | Work item | Acceptance |
+| --- | --- | --- | --- |
+| B-23 | Design documented | Conservation content model | Linked species/animals/enclosures/zones/stories/programs/media; source and review dates; no fabricated verified records. |
+| B-24 | Reference reconciled; implementation open | Domain roles/access | Six domains, five roles; explicit scoped assignments; admin is not an automatic domain approver; backend denies unauthorized requests. |
+| B-25 | Design documented; implementation open | Content lifecycle/approvals | Required reviewers by changed fields; exact-revision approvals; history, rollback and scheduled visibility; clarify publishing/self-approval policy. |
+| B-26 | Open prerequisite | Initial Survey Mode | Capture landmark/path/viewing-zone observations with provenance; domain/map review before approved geographic publication. |
+| B-27 | Open | Basic Con Ed editor | Protected editor updates interpretation without app release; Animal Care facts remain under appropriate review. |
+| B-28 | Open | Three representative pilots | Verified single-animal/bear, group/flamingo and free-roaming-zone content; sources/media rights/accessibility and required approvals. |
+| B-29 | Open | Visitor conservation integration | Correct approved content at selected enclosure/zone; schedules/expiry enforced; drafts inaccessible publicly. |
+| B-30 | Design recovered; implementation later | Accessibility/sensory layers | Validated path attributes; accessibility in routing; optional sensory overlay; no required disability disclosure. |
+| B-31 | Design recovered; implementation later | Events/domain operational engine | Domain-specific authority, event thresholds/escalation/acknowledgement/resolution/audit; normal events separate from safety. |
+
+The source identifies domains and roles, but does not select actual staff accounts, backend/identity provider, complete draft-view/action grants, final publishing authority, self-approval rules or emergency overrides. These remain explicit implementation decisions.

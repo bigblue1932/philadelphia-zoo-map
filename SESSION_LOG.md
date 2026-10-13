@@ -1,5 +1,15 @@
 # Session Log
 
+## October 13, 2026 — Conservation governance reference recovered
+
+- Owner requested conservation information per enclosure with specified access and workflow approvals, then supplied Philadelphia_Zoo_Map_Content_Governance_Architecture_v0.1.docx as the morning reference.
+- Read source text/table cells from DOCX without modifying it. Source is dated October 13, version 0.1, Design checkpoint, IT/cross-functional ownership. SHA-256 fdb0ba423c2d19e2b9212f7f0a9c3d7de67632cdbe633f58445a6f356ad65204. The original is retained unchanged outside the repository; normalized content/provenance are recorded in CONTENT_GOVERNANCE.md.
+- Reconciled the six domains, five roles, data-type routing, multi-domain review, content lifecycle/scheduling, first-class conservation, accessibility/sensory principles, events and common operational routing framework.
+- Replaced the earlier conservation draft's missing-domain statements with source-backed scope. Marked additional implementation mechanics and unresolved access/publishing policy separately.
+- Updated all six master documents and CONSERVATION_PLAN.md; Survey Mode/content backend/editor/access enforcement remain unimplemented. No staff contacted, account grants changed or conservation facts published. Existing v0.2 application behavior is unchanged.
+- Verified all eight affected documents, six-domain/five-role coverage, local Markdown links and git diff whitespace. This documentation checkpoint records design only; no DOCX output, new application features or field-test completion is claimed.
+
+
 ## October 13, 2026 — GPS safeguards and master checkpoint
 
 - Owner reaffirmed GPS geofencing/off-site/bounds/accuracy as first priority, followed by enclosure-specific shared sightings, aggregation, confidence and live map notices. Owner explicitly chose implementation in addition to documentation.

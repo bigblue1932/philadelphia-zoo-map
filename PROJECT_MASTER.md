@@ -14,6 +14,12 @@ Version 0.1 was published October 11 at https://bigblue1932.github.io/philadelph
 
 October 13 owner direction: prioritize GPS geofencing, off-site mode, map boundary restrictions, and accuracy safeguards; then develop enclosure-specific crowdsourced sightings, report aggregation, confidence scoring, and real-time map notifications. The owner explicitly requested implementing GPS safeguards during this checkpoint. Version 0.2 code now implements them; see PROTOTYPE_V0_2.md for provisional policy and validation status. Sightings remain planned work.
 
+## Conservation and governance reference reconciled October 13
+
+The owner supplied the v0.1 Content, Accessibility & Domain Governance Architecture from the morning discussion. Conservation is a first-class content pillar linked to enclosures, species and validated individual animals where appropriate. Organizational domains: Con Ed, Animal Care, Public Safety, Garden Services/Facilities, Guest Services/Marketing/PR and IT. Roles: Editor/Contributor, Surveyor, Domain Approver, Map Approver and Platform Administrator. Domain ownership, multi-domain approval and revision history are recorded in CONTENT_GOVERNANCE.md; the implementation plan is CONSERVATION_PLAN.md.
+
+The reference is a design checkpoint, not proof of staff/Zoo authorization or an implemented access system. Its recommended sequence is geofencing plus initial Survey Mode, content model, basic Con Ed editor/approval workflow, three representative pilots, then visitor map/routing integration. Current work is content/governance design; shared sightings remain in scope. Survey Mode, content backend and staff accounts are not implemented.
+
 ## Confirmed requirements
 
 | ID | Requirement | Status |
@@ -32,6 +38,8 @@ October 13 owner direction: prioritize GPS geofencing, off-site mode, map bounda
 | R-12 | GPS accuracy safeguards | v0.2 implemented; uncertain/stale/error states disable following. |
 | R-13 | Individual enclosure/section identity | Planned; stable identifiers for physically separate sections. |
 | R-14 | Aggregate reports and confidence | Planned; one active marker per enclosure/observation group, no report-dot duplication. |
+| R-15 | Enclosure-linked conservation content | Owner requested; first-class sourced content model/design now documented. |
+| R-16 | Domain-scoped access and workflow approval | Owner requested; six-domain/five-role reference reconciled; server enforcement and assignments pending. |
 
 ## Next acceptance gates
 
