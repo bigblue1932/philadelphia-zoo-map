@@ -1,6 +1,6 @@
 # Survey Mode v0.3
 
-Implemented October 13, 2026. A browser-local field collection prototype, not an authenticated staff system. Surveying creates unverified drafts; it never changes the public basemap, publishes geographic changes or submits approval requests.
+Implemented and live-browser verified October 13, 2026 at https://bigblue1932.github.io/philadelphia-zoo-map/ . Implementation checkpoint 48fa50e; asset refresh checkpoint 8b3b149. A browser-local field collection prototype, not an authenticated staff system. Surveying creates unverified drafts; it never changes the public basemap, publishes geographic changes or submits approval requests.
 
 ## Collect observations
 
