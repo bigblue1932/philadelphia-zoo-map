@@ -6,7 +6,7 @@
 - Implemented points, path segments and viewing-zone areas, GPS/manual per-vertex evidence, names/references/notes and basic unknown-or-observed attributes. Added strict 20 m GPS capture eligibility through the existing accepted-fix adapter.
 - Implemented separate purple draft layers, vertex undo, saved-draft show/remove, explicit device persistence, GeoJSON export/import and untrusted import validation. Updated privacy copy to distinguish live tracking from explicitly captured survey records.
 - Twenty tests passed, including existing geofence/controller tests and new survey-model regressions. Browser manually saved a synthetic landmark and two-vertex path, rejected a repeated vertex, exported/inspected draft metadata, recovered the landmark after opt-in storage/reload and removed test records and the device copy. Synthetic export is outside the repository; no real GPS or field survey is claimed.
-- Updated master documents and SURVEY_MODE.md. Real phone GPS capture/multi-vertex usability, geometry alignment, authenticated submission/approval and official map alignment remain pending.
+- Updated master documents and SURVEY_MODE.md. Initial live interaction found a nonresponsive survey toggle after the new HTML loaded; added release query versions to all local scripts/CSS to prevent stale asset combinations across Pages deployments. Real phone GPS capture/multi-vertex usability, geometry alignment, authenticated submission/approval and official map alignment remain pending.
 
 
 ## October 13, 2026 — Conservation governance reference recovered
