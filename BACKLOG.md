@@ -9,7 +9,7 @@ Updated October 13, 2026. Implementation and field validation are tracked separa
 | B-03 | Partial | Map provenance and coordinates | OSM basemap and perimeter source recorded; exhibit/enclosure and field alignment pending. |
 | B-04 | Implemented; phone gate open | Mobile map | Desktop browser rendering verified; test actual phone controls/layout. |
 | B-05 | Implemented; field gate open | GPS, accuracy and failure handling | v0.1 automated checks; extended v0.2 regression checks. |
-| B-06 | v0.1 published; v0.2 pending verification | Pages publication | HTTPS baseline verified; record v0.2 checkpoint and live verification. |
+| B-06 | v0.1/v0.2 published; phone gate open | Pages publication | HTTPS v0.2 verified at bb734ac; actual phone acceptance remains pending. |
 | B-07 | Open | Zoo-ground GPS field test | Phone/OS/browser, signal, accuracy, boundary behavior and proceed/revise/pause findings; no public personal traces. |
 | B-08 | Later | Validated path graph and routing | Source/rights, mapped routes and field-validated destinations. |
 | B-09 | Next | Shared report service | Select vendor/cost, server validation, privacy/retention and moderation; two visitors see shared reports. |

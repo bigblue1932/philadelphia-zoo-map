@@ -1,6 +1,6 @@
 # Version 0.2 — GPS safeguards
 
-Implementation date: October 13, 2026. Builds on v0.1 checkpoint 33a08de. This release implements GPS safeguards; shared sightings remain the next milestone.
+Implementation date: October 13, 2026. Builds on v0.1 checkpoint 33a08de. Published implementation/master checkpoint: bb734ac383a5bef4e3a49ade175af7d257b6e51d. HTTPS v0.2 rendering browser-verified October 13 at https://bigblue1932.github.io/philadelphia-zoo-map/ . This release implements GPS safeguards; shared sightings remain the next milestone.
 
 ## Visitor behavior
 

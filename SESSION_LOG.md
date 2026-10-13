@@ -9,7 +9,9 @@
 - Reconciled all six master documents around current facts and new priority order. Defined proposed enclosure/report/aggregate/event contracts, contributor deduplication, confidence/expiry and two-device notification acceptance gates; no shared backend implemented.
 - Fourteen automated geofence/controller checks passed, including background pause, bounds configuration and long-gap reacquisition. Phone and Zoo-ground validation remain open. See PROTOTYPE_V0_2.md for policy and field checklist.
 - Local browser verified v0.2 rendering, the approximate perimeter, mode UI and the minimum-zoom limit; attempted panning remained in the Zoo vicinity. Real phone layout, GPS and Zoo-ground behavior remain unverified.
-- GitHub checkpoint and v0.2 live verification are recorded after publication below.
+- Published implementation/master checkpoint bb734ac383a5bef4e3a49ade175af7d257b6e51d to main and verified the remote revision.
+- Browser reloaded https://bigblue1932.github.io/philadelphia-zoo-map/ and confirmed the v0.2 title, Leaflet map, explore-mode indicator, updated legend and controls. Live deployment verified October 13.
+- A follow-up documentation commit records this result; no shared sightings or field GPS validation are claimed.
 
 
 ## October 11, 2026 — Version 0.1 development
