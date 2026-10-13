@@ -21,3 +21,7 @@ The owner now requests conservation content/access/approvals. The supplied archi
 5. Integrate approved content with the visitor map and subsequently validated routing.
 
 This adds the recovered conservation sequence to the prior roadmap. Shared sightings, aggregation and real-time map notices remain planned; no authenticated editor/backend or Survey Mode is delivered yet. Cross-domain operational and emergency features require separate authorization and verification.
+
+## Survey Mode implementation checkpoint
+
+Initial draft collection is implemented in v0.3; phone/field acceptance remains open. The next conservation step is the first-class content model and authenticated editor/approval service. Survey exports can seed proposed geometry with evidence after Map Approver/domain review; they cannot publish themselves. Brochure alignment, richer measured accessibility attributes and operational integration remain future work.

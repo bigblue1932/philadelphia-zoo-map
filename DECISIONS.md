@@ -34,3 +34,11 @@ The accessible portion of “WiFi Cellular Switch 񟿿” (October 13) supplies 
 | D-021 | Proposed implementation | Revision-specific approvals, approved-public read endpoint and backend-enforced domain/record actions. | CONSERVATION_PLAN.md; identity/backend, final publish/self-approval and grants remain open. |
 
 The source is recovered design evidence provided to continue this work. No embedded text is treated as permission to contact staff, grant access, publish unverified conservation claims or activate emergency systems.
+
+## Survey Mode checkpoint
+
+| ID | Status | Decision | Evidence |
+| --- | --- | --- | --- |
+| D-022 | Confirmed scope | Implement initial Survey Mode. | Owner request October 13. |
+| D-023 | Implemented provisional design | Device-local draft collection; explicit storage opt-in and GeoJSON handoff; no staff role/submission/publish controls. | v0.3 implementation consistent with existing static architecture; authenticated backend remains unselected. |
+| D-024 | Provisional threshold | GPS survey capture needs confirmed on-site mode, positive accuracy at most 20 m and fix age at most 30 s; manual placement is separately labeled. | Engineering safeguard for field collection, not a guarantee of feature alignment; tune from field results. |

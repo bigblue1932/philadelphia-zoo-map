@@ -72,7 +72,7 @@ The present GitHub Pages application remains public and static. Restricted draft
 
 ## Reference milestone sequence and current reconciliation
 
-1. Finish geofencing and initial Survey Mode. Geofencing is implemented in v0.2; field acceptance and Survey Mode remain open.
+1. Finish geofencing and initial Survey Mode. Geofencing is implemented in v0.2; field acceptance remains open; initial device-local Survey Mode is implemented in v0.3 (see SURVEY_MODE.md).
 2. Design the conservation/content data model (current workstream).
 3. Build the basic Con Ed editor and Domain Approver workflow after access/enforcement decisions.
 4. Populate three validated representatives: single-animal/bear, group/flamingo and free-roaming habitat examples. These are test categories, not established enclosure/animal assignments.

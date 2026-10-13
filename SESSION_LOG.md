@@ -1,5 +1,14 @@
 # Session Log
 
+## October 13, 2026 — Survey Mode v0.3
+
+- Owner requested implementation of Survey Mode. Used the reconciled governance architecture and kept staff authorization/publication separate from field drafts.
+- Implemented points, path segments and viewing-zone areas, GPS/manual per-vertex evidence, names/references/notes and basic unknown-or-observed attributes. Added strict 20 m GPS capture eligibility through the existing accepted-fix adapter.
+- Implemented separate purple draft layers, vertex undo, saved-draft show/remove, explicit device persistence, GeoJSON export/import and untrusted import validation. Updated privacy copy to distinguish live tracking from explicitly captured survey records.
+- Twenty tests passed, including existing geofence/controller tests and new survey-model regressions. Browser manually saved a synthetic landmark and two-vertex path, rejected a repeated vertex, exported/inspected draft metadata, recovered the landmark after opt-in storage/reload and removed test records and the device copy. Synthetic export is outside the repository; no real GPS or field survey is claimed.
+- Updated master documents and SURVEY_MODE.md. Real phone GPS capture/multi-vertex usability, geometry alignment, authenticated submission/approval and official map alignment remain pending.
+
+
 ## October 13, 2026 — Conservation governance reference recovered
 
 - Owner requested conservation information per enclosure with specified access and workflow approvals, then supplied Philadelphia_Zoo_Map_Content_Governance_Architecture_v0.1.docx as the morning reference.

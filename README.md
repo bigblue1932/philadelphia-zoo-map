@@ -1,9 +1,9 @@
 # Philadelphia Zoo Map
 
-Version 0.2 adds approximate GPS geofencing, off-site browsing, Zoo map bounds and accuracy safeguards to the Leaflet/OpenStreetMap prototype. Location remains on-device in page memory.
+Version 0.3 adds browser-local Survey Mode to the Leaflet/OpenStreetMap prototype. Collect draft points, paths and viewing zones with GPS/manual evidence; opt into device storage or export/import GeoJSON. Drafts never change the published map.
 
-Live prototype: https://bigblue1932.github.io/philadelphia-zoo-map/
+Live: https://bigblue1932.github.io/philadelphia-zoo-map/
 
-Run locally: node tools/preview.cjs . Checks: node --test tests/location.test.cjs tests/geofence.test.cjs . No build or API key needed; internet access is required for Leaflet and tiles.
+Run: node tools/preview.cjs . Checks: node --test tests/location.test.cjs tests/geofence.test.cjs tests/survey.test.cjs . No build or API key; internet access required for Leaflet and tiles.
 
-See [PROTOTYPE_V0_2.md](PROTOTYPE_V0_2.md) for provisional policy and phone validation. [PROTOTYPE_V0_1.md](PROTOTYPE_V0_1.md) records the previous baseline. Six master documents describe current scope and the next enclosure-specific shared sightings milestone. Shared reports are not implemented yet. Official pedestrian pathways remain later work.
+See [SURVEY_MODE.md](SURVEY_MODE.md) for collecting/recovering drafts, privacy and phone tests. [PROTOTYPE_V0_2.md](PROTOTYPE_V0_2.md) records the GPS safeguards. [CONTENT_GOVERNANCE.md](CONTENT_GOVERNANCE.md) and [CONSERVATION_PLAN.md](CONSERVATION_PLAN.md) describe future authenticated workflows and content. Staff authentication, shared sightings, approval and publication services remain unimplemented.

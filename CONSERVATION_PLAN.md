@@ -51,11 +51,11 @@ Provide readable structured text, meaningful link labels and reviewed media alte
 
 ## Implementation gates
 
-- Complete initial Survey Mode and field-validation plan; v0.2 geofencing remains provisionally validated in automation only.
+- Validate the implemented v0.3 local Survey Mode on a phone; v0.2 geofencing remains provisionally validated in automation only.
 - Select authenticated backend/identity and explicit grants before enabling Editors/Approvers.
 - Validate schema, required sources/media accessibility and field-level review routing.
 - Test unauthorized read/write/approve/publish access, review bypass, stale-revision approvals, schedule/expiry and rollback.
 - Populate three representative records with verified enclosure/source data and exercise Con Ed/Animal Care/map review where required.
 - Deliver approved public content to selected map enclosures, with source/review dates and no draft exposure.
 
-This checkpoint reconciles documentation and implementation requirements. It does not implement Survey Mode, a conservation UI, staff authentication, an approval engine or a content backend.
+This checkpoint reconciles documentation and implementation requirements. Local Survey Mode is now implemented in v0.3 (SURVEY_MODE.md); a conservation UI, staff authentication, approval engine and content backend remain unimplemented.

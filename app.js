@@ -1,4 +1,4 @@
-/* v0.2: geofenced browsing; no backend, persistence, or location trace. */
+/* v0.3: geofenced browsing with separate local survey drafts; no backend. */
 (() => {
   'use strict';
   const ZOO = [39.9725, -75.1957]; // Approximate overview; sources documented in README.
@@ -39,6 +39,7 @@
   tiles.on('loading', () => { ui['map-error'].hidden = true; });
   let watchId = null, generation = 0, active = false, following = false, position = null, dot = null, circle = null, lastError = false;
   let eligible = false, readingTime = null;
+  let survey = null;
   const setFollow = value => {
     following = value;
     ui.follow.setAttribute('aria-pressed', String(value));
@@ -51,8 +52,10 @@
     ui['site-mode'].textContent = mode;
     if (dot) dot.setStyle({ opacity: 0.45, fillOpacity: 0.35 });
     if (circle) circle.setStyle({ opacity: 0.25, fillOpacity: 0.04 });
+    survey?.refreshGPS();
   };
   const renderAge = () => {
+    survey?.refreshGPS();
     if (readingTime === null) return;
     const age = Math.max(0, Date.now() - readingTime);
     ui.updated.textContent = age < 1000 ? 'Just now' : `${Math.floor(age / 1000)}s ago`;
@@ -108,7 +111,7 @@
       }
       return;
     }
-    position = { latlng: result.latlng, timestamp: result.timestamp };
+    position = { latlng: result.latlng, timestamp: result.timestamp, accuracy: result.accuracy };
     eligible = true;
     if (!dot) {
       circle = L.circle(position.latlng, { radius: accuracy, color: '#2472de', weight: 1, fillOpacity: 0.12, interactive: false }).addTo(map);
@@ -172,4 +175,10 @@
   });
   window.addEventListener('pagehide', () => { stop(); clearInterval(timer); });
   window.addEventListener('pageshow', event => { if (event.persisted) window.location.reload(); });
+  if (window.ZooSurvey && window.ZooSurveyModel) {
+    survey = window.ZooSurvey.mount(map, () => active && eligible ? position : null, window.ZooBoundary.ring);
+  } else {
+    const notice = document.getElementById('survey-message');
+    if (notice) notice.textContent = 'Survey Mode files could not load. Check your connection and reload.';
+  }
 })();

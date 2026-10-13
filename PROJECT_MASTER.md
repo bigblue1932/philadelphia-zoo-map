@@ -60,3 +60,7 @@ Official pedestrian pathways, map rights/alignment, accessibility authority, ope
 ## Working records
 
 PROJECT_MASTER.md defines scope; ARCHITECTURE.md defines components/contracts; DECISIONS.md records authority and provisional choices; ROADMAP.md sequences milestones; BACKLOG.md tracks acceptance gates; SESSION_LOG.md records evidence. Keep synced project files and sources/ read-only; edit the cloned repository. Historical session entries retain their original dates and are not current-state assertions.
+
+## Version 0.3 Survey Mode implementation
+
+Owner requested Survey Mode implementation October 13. The app now collects browser-local draft landmark/facility points, pathway segments and viewing-zone polygons with GPS/manual source evidence, field notes, unknown-or-observed surface/stairs attributes and proposed review labels. GPS capture requires confirmed on-site status with accuracy at most 20 m. Drafts are memory-only unless the user explicitly opts into device storage; GeoJSON export/import supports review handoff. No role, submission, approval or publication authority is implemented. See SURVEY_MODE.md. Real phone capture and Zoo-ground alignment remain unverified.

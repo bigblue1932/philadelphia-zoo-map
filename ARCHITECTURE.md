@@ -4,7 +4,7 @@ Updated October 13, 2026.
 
 ## Current static client
 
-GitHub Pages HTTPS → index.html → Leaflet 1.9.4 and OSM raster tiles → browser watchPosition. No location backend, analytics, trace export, or persistent GPS storage.
+GitHub Pages HTTPS → index.html → Leaflet 1.9.4 and OSM raster tiles → browser watchPosition. Live visitor tracking has no location backend, analytics or persistent location history. v0.3 Survey Mode can explicitly capture individual fixes into local drafts and export them; saved survey storage requires opt-in.
 
 - app.js: map, touch/keyboard controls, permission/error lifecycle, mode/status display and follow eligibility.
 - zoo-boundary.js: closed OSM way 239934148 version 8 snapshot, retrieved October 13, with source and ODbL attribution. Community perimeter, not field-validated.
@@ -44,4 +44,8 @@ Paths: geometry/endpoints, accessibility attributes, provenance and validation d
 
 CONTENT_GOVERNANCE.md captures the supplied v0.1 design and distinguishes source requirements from implementation proposals. CONSERVATION_PLAN.md defines proposed species/animal/enclosure/story/program/media/revision/role-assignment entities and the first Con Ed/Domain Approver workflow. One domain-aware authorization and event framework should support publishing, geographic review, events and operational routing; emergency and marketing authority remain distinct.
 
-Restricted drafts and workflow actions need authenticated backend enforcement; Pages serves approved public content only. No backend/identity/vendor is selected and no staff access is configured. Initial Survey Mode, referenced as a prerequisite, is not implemented. Accessibility is embedded in future routing by default, sensory overlays are optional, and neither requires disability disclosure. Geography and accessibility attributes require source/field validation.
+Restricted drafts and workflow actions need authenticated backend enforcement; Pages serves approved public content only. No backend/identity/vendor is selected and no staff access is configured. Initial Survey Mode is now implemented as device-local drafts in v0.3; see its implementation section below. Accessibility is embedded in future routing by default, sensory overlays are optional, and neither requires disability disclosure. Geography and accessibility attributes require source/field validation.
+
+## Survey Mode v0.3
+
+survey-model.js supplies validation, unverified draft contracts and GeoJSON serialization/import; survey.js owns the UI, separate purple Leaflet groups and opt-in device persistence. app.js provides a read-only getter for the current accepted on-site fix, including reported accuracy; the survey capture threshold is 20 m and freshness limit 30 seconds. No continuous trace, network submission or map-data promotion occurs. Manual vertices remain estimates and unknown accessibility values stay unknown. Imports validate all records before applying them and cannot grant approval or identity status. GPS stop clears tracking but preserves explicitly captured draft work. See SURVEY_MODE.md for limits, retention and future backend handoff.
