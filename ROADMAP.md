@@ -1,11 +1,11 @@
 # Roadmap
 
-Status: Initial draft; October 11, 2026. No completion dates committed.
+Updated October 13, 2026. No completion dates promised.
 
-1. **Initialization:** Review PROJECT_MASTER.md, reconcile historical context, select GitHub repository and map sources.
-2. **M1 — Browser map and GPS proof of concept:** Build the map, publish the test version through GitHub Pages, test a phone on Zoo grounds, and record results against the proposed acceptance criteria.
-3. **Proposed M2 — Navigation and inclusive information:** Validate pathways and accessibility attributes; define navigation and quiet-exhibit behavior.
-4. **Proposed M3 — Shared sightings:** Define report freshness and moderation; select persistence; test visitor reporting and discovery.
-5. **Proposed M4 — Notifications and public safety:** Define trusted sources, consent, workflows, and authorization needs; test clearly labeled demonstrations before operational use.
+1. **M1 — v0.1 map/GPS baseline:** Source pushed and Pages rendering verified. Real phone and Zoo-ground acceptance remain pending.
+2. **M1.1 — v0.2 GPS safeguards (current priority):** Implement geofence, off-site browsing, bounds and accuracy protections. Validate transitions in automation and browser, publish the checkpoint, then tune perimeter and policy from phone/Zoo-ground findings.
+3. **M2 — enclosure-specific shared sightings (next):** Validate physically separate enclosures/sections and species metadata; choose a low-cost shared service; define report freshness, contributor deduplication, moderation and confidence. Demonstrate one aggregate marker per enclosure/group on two devices, with reliable expiry and reconnect behavior. Add rate-limited real-time map notices and mute.
+4. **Later — inclusive navigation:** Incorporate the permitted official pedestrian map, validate a pathway graph and accessibility attributes, and define quiet-exhibit information.
+5. **Later — broader notices/public safety:** Trusted sources, consent, workflows, authority and operational ownership remain required. The sightings milestone does not create staff dispatch or emergency alerts.
 
-Later milestones are proposals. Production requires separate approval, operational ownership, validated data, and any necessary Zoo authorization. M1 findings may change the sequence.
+This sequencing supersedes the original October 11 proposed M2/M3 order based on the October 13 owner request. Accessibility, quiet experiences and safety remain in scope. Production approval and Zoo authorization are separate from prototype milestones.

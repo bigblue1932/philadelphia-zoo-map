@@ -1,22 +1,31 @@
-/* v0.1: no backend, persistence, or location trace. */
+/* v0.2: geofenced browsing; no backend, persistence, or location trace. */
 (() => {
   'use strict';
   const ZOO = [39.9725, -75.1957]; // Approximate overview; sources documented in README.
   const STALE_MS = 30000;
-  const ui = Object.fromEntries(['status', 'status-dot', 'message', 'accuracy', 'updated', 'tracking', 'follow', 'zoo', 'map-error'].map(id => [id, document.getElementById(id)]));
+  const ui = Object.fromEntries(['status', 'status-dot', 'message', 'accuracy', 'updated', 'tracking', 'follow', 'zoo', 'map-error', 'site-mode'].map(id => [id, document.getElementById(id)]));
   const status = (title, message, state = '') => {
     ui.status.textContent = title;
     ui.message.textContent = message;
     ui['status-dot'].dataset.state = state;
   };
-  if (!window.L) {
+  if (!window.L || !window.ZooBoundary || !window.ZooLocationPolicy) {
     ui['map-error'].hidden = false;
-    ui['map-error'].textContent = 'The map library could not load. Check your connection and reload this page.';
+    ui['map-error'].textContent = 'Required map files could not load. Check your connection and reload this page.';
     ui.tracking.disabled = ui.zoo.disabled = true;
     status('Map unavailable', 'An internet connection is needed to load this prototype.', 'error');
     return;
   }
-  const map = L.map('map', { zoomControl: false }).setView(ZOO, 17);
+  const policy = window.ZooLocationPolicy.create(window.ZooBoundary.ring);
+  const zooBounds = L.latLngBounds(window.ZooBoundary.ring);
+  const viewBounds = zooBounds.pad(0.25);
+  const map = L.map('map', { zoomControl: false, maxBounds: viewBounds, maxBoundsViscosity: 1, maxZoom: 19 }).setView(ZOO, 17);
+  const overview = () => map.fitBounds(zooBounds, { padding: [20, 20], maxZoom: 17 });
+  const resizeBounds = () => { map.setMinZoom(Math.min(19, map.getBoundsZoom(viewBounds))); map.panInsideBounds(viewBounds, { animate: false }); };
+  overview();
+  resizeBounds();
+  map.on('resize', resizeBounds);
+  L.polygon(window.ZooBoundary.ring, { color: '#47664c', weight: 2, dashArray: '6 5', fill: false, interactive: false }).addTo(map);
   L.control.zoom({ position: 'topright' }).addTo(map);
   L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(map);
   const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -29,44 +38,78 @@
   });
   tiles.on('loading', () => { ui['map-error'].hidden = true; });
   let watchId = null, generation = 0, active = false, following = false, position = null, dot = null, circle = null, lastError = false;
+  let eligible = false, readingTime = null;
   const setFollow = value => {
     following = value;
     ui.follow.setAttribute('aria-pressed', String(value));
     ui.follow.textContent = value ? 'Following you' : 'Follow me';
   };
+  const suspend = (mode = 'Location uncertain · exploring the Zoo') => {
+    eligible = false;
+    setFollow(false);
+    ui.follow.disabled = true;
+    ui['site-mode'].textContent = mode;
+    if (dot) dot.setStyle({ opacity: 0.45, fillOpacity: 0.35 });
+    if (circle) circle.setStyle({ opacity: 0.25, fillOpacity: 0.04 });
+  };
   const renderAge = () => {
-    if (!position) return;
-    const age = Math.max(0, Date.now() - position.timestamp);
+    if (readingTime === null) return;
+    const age = Math.max(0, Date.now() - readingTime);
     ui.updated.textContent = age < 1000 ? 'Just now' : `${Math.floor(age / 1000)}s ago`;
     const stale = age > STALE_MS;
-    dot.setStyle({ opacity: stale ? 0.45 : 1, fillOpacity: stale ? 0.35 : 1 });
-    circle.setStyle({ opacity: stale ? 0.25 : 0.6, fillOpacity: stale ? 0.04 : 0.12 });
-    if (active && stale && !lastError) status('Location is stale', 'No fresh fix for 30 seconds. Your last position is faded; keep this page visible and check Location Services.', 'warning');
+    if (active && stale) {
+      policy.uncertain('stale');
+      suspend();
+      if (!lastError) status('Location is stale', 'No fresh fix for 30 seconds. Following is paused; any faded dot is the last accepted position. Keep this page visible.', 'warning');
+    }
   };
   const stop = () => {
     active = false;
     generation++;
     if (watchId !== null) navigator.geolocation.clearWatch(watchId);
     watchId = null;
-    setFollow(false);
-    ui.follow.disabled = true;
+    policy.reset();
+    suspend('Explore mode · location not checked');
     ui.tracking.textContent = 'Start live GPS';
     if (dot) map.removeLayer(dot);
     if (circle) map.removeLayer(circle);
     dot = circle = position = null;
+    readingTime = null;
     ui.accuracy.textContent = ui.updated.textContent = '—';
   };
   const onPosition = fix => {
-    const { latitude, longitude, accuracy } = fix.coords;
-    if (![latitude, longitude, accuracy, fix.timestamp].every(Number.isFinite) || Math.abs(latitude) > 90 || Math.abs(longitude) > 180 || accuracy < 0) {
-      lastError = true;
-      status('Invalid location fix', 'The phone returned an invalid position. Waiting for another update.', 'warning');
+    const result = policy.inspect(fix, Date.now());
+    const accuracy = fix?.coords?.accuracy;
+    lastError = false;
+    if (Number.isFinite(accuracy) && accuracy > 0) ui.accuracy.textContent = `± ${Math.round(accuracy)} m`;
+    if (!['invalid', 'stale', 'out-of-order', 'jump'].includes(result.reason)) {
+      readingTime = fix.timestamp;
+      ui.updated.textContent = `${Math.max(0, Math.floor((Date.now() - readingTime) / 1000))}s ago`;
+    }
+    if (!result.usable) {
+      suspend(result.mode === 'off-site' ? 'Off-site mode · explore the Zoo remotely' : undefined);
+      if (result.mode === 'off-site') {
+        if (dot) map.removeLayer(dot);
+        if (circle) map.removeLayer(circle);
+        dot = circle = position = null;
+        ui.updated.textContent = 'Just now';
+        status('You appear to be off-site', 'The map stays at the Zoo. Live GPS keeps checking for your arrival; following is available only clearly inside the approximate boundary.');
+      } else {
+        const messages = {
+          invalid: ['Invalid location fix', 'The phone returned invalid coordinates, accuracy, or time. Waiting for a reliable fix.'],
+          stale: ['Location is stale', 'The phone returned an old fix. Waiting for a fresh update.'],
+          accuracy: ['GPS accuracy is too low', 'Reported accuracy exceeds 50 m. Following is paused; try an open area.'],
+          'out-of-order': ['Waiting for a newer fix', 'This fix is duplicated or out of order. Following is paused.'],
+          jump: ['GPS jump ignored', 'This position moved unexpectedly. Following is paused while we wait for reliable updates.'],
+          boundary: ['Near the Zoo boundary', 'The accuracy circle overlaps the approximate perimeter. We cannot confirm whether you are inside.'],
+          confirming: ['Confirming your location', 'Waiting for a second reliable fix before confirming on-site or off-site mode.']
+        };
+        status(...messages[result.reason], 'warning');
+      }
       return;
     }
-    if (position && fix.timestamp < position.timestamp) return;
-    const first = !position;
-    position = { latlng: [latitude, longitude], timestamp: fix.timestamp };
-    lastError = false;
+    position = { latlng: result.latlng, timestamp: result.timestamp };
+    eligible = true;
     if (!dot) {
       circle = L.circle(position.latlng, { radius: accuracy, color: '#2472de', weight: 1, fillOpacity: 0.12, interactive: false }).addTo(map);
       dot = L.circleMarker(position.latlng, { radius: 8, color: '#fff', weight: 3, fillColor: '#2472de', fillOpacity: 1, className: 'user-location' }).addTo(map).bindPopup('Your phone’s reported position');
@@ -76,12 +119,17 @@
     }
     ui.accuracy.textContent = `± ${Math.round(accuracy)} m`;
     ui.follow.disabled = false;
-    status(accuracy > 50 ? 'Tracking · low accuracy' : 'Live GPS tracking', accuracy > 50 ? 'The phone reports a wide accuracy radius. Try an open area and give GPS time to settle.' : 'Your position updates as you walk. Drag the map to explore; tap Follow me to recenter.', accuracy > 50 ? 'warning' : 'live');
-    if (following) map.setView(position.latlng, first ? 18 : map.getZoom(), { animate: false });
+    ui['site-mode'].textContent = 'On-site mode · approximate boundary check';
+    dot.setStyle({ opacity: 1, fillOpacity: 1 });
+    circle.setStyle({ opacity: 0.6, fillOpacity: 0.12 });
+    status('Live GPS · on-site', 'Your position updates as you walk. Tap Follow me to recenter. Dragging or uncertain GPS pauses following.', 'live');
+    if (following) map.setView(position.latlng, map.getZoom(), { animate: false });
     renderAge();
   };
   const onError = error => {
     lastError = true;
+    policy.uncertain('error');
+    suspend();
     if (error.code === 1) {
       stop();
       status('Location permission denied', 'Enable location for this site in browser settings and check your phone’s Location Services, then tap Start live GPS again.', 'error');
@@ -96,7 +144,7 @@
     active = true;
     lastError = false;
     const token = ++generation;
-    setFollow(true);
+    setFollow(false);
     ui.tracking.textContent = 'Stop GPS';
     status('Finding your location', 'Allow location access when prompted. The first fix may take a little time.', 'warning');
     try {
@@ -108,13 +156,20 @@
     }
   });
   ui.follow.addEventListener('click', () => {
+    if (!eligible || !position || Date.now() - position.timestamp > STALE_MS) return;
     setFollow(!following);
     if (following && position) map.setView(position.latlng, map.getZoom(), { animate: false });
   });
   map.on('dragstart', () => setFollow(false));
-  ui.zoo.addEventListener('click', () => { setFollow(false); map.setView(ZOO, 17); });
+  ui.zoo.addEventListener('click', () => { setFollow(false); overview(); });
   const timer = setInterval(renderAge, 1000);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) { map.invalidateSize(); renderAge(); } });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && active) {
+      policy.uncertain('background'); suspend();
+      status('Following paused', 'The page was in the background. Waiting for two reliable location updates before following is available again.', 'warning');
+    }
+    else { map.invalidateSize(); renderAge(); }
+  });
   window.addEventListener('pagehide', () => { stop(); clearInterval(timer); });
   window.addEventListener('pageshow', event => { if (event.persisted) window.location.reload(); });
 })();

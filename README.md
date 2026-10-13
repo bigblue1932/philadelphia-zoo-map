@@ -1,7 +1,9 @@
 # Philadelphia Zoo Map
 
-Version 0.1 is a mobile-friendly, independent map prototype using Leaflet 1.9.4 and OpenStreetMap. It supports live phone location, an accuracy radius, follow/recenter controls, and GPS permission/error/stale-location handling.
+Version 0.2 adds approximate GPS geofencing, off-site browsing, Zoo map bounds and accuracy safeguards to the Leaflet/OpenStreetMap prototype. Location remains on-device in page memory.
 
-Open `index.html` through an HTTPS host or a localhost server. Run `node tools/preview.cjs` for local preview and `node --test tests/location.test.cjs` for automated controller checks.
+Live prototype: https://bigblue1932.github.io/philadelphia-zoo-map/
 
-See [PROTOTYPE_V0_1.md](PROTOTYPE_V0_1.md) for GitHub Pages setup, phone testing, privacy, sources, and limitations. The six master documents preserve the broader roadmap. Official pedestrian pathways will be incorporated later.
+Run locally: node tools/preview.cjs . Checks: node --test tests/location.test.cjs tests/geofence.test.cjs . No build or API key needed; internet access is required for Leaflet and tiles.
+
+See [PROTOTYPE_V0_2.md](PROTOTYPE_V0_2.md) for provisional policy and phone validation. [PROTOTYPE_V0_1.md](PROTOTYPE_V0_1.md) records the previous baseline. Six master documents describe current scope and the next enclosure-specific shared sightings milestone. Shared reports are not implemented yet. Official pedestrian pathways remain later work.

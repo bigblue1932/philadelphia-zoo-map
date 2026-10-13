@@ -1,5 +1,17 @@
 # Session Log
 
+## October 13, 2026 — GPS safeguards and master checkpoint
+
+- Owner reaffirmed GPS geofencing/off-site/bounds/accuracy as first priority, followed by enclosure-specific shared sightings, aggregation, confidence and live map notices. Owner explicitly chose implementation in addition to documentation.
+- Fetched origin and verified clean checkout at 33a08de. Edited the cloned repository only; synced master/reference files and sources/ remain untouched.
+- Read the returned portion of the morning chat “WiFi Cellular Switch 񟿿” (thread 6ace0a3c-9334-83ea-819a-36cd4504c286): owner requested shared visibility reports, avoiding twenty duplicate dots, and distinct bear enclosure sections. Earlier GPS discussion was not returned; no hidden thresholds are inferred.
+- Implemented v0.2 pure location policy, approximate OSM geofence, off-site browsing, map pan/zoom restrictions, uncertainty safeguards and confirmation/recovery. Retrieved OSM way 239934148 version 8 (60 closed-ring points), with source/ODbL metadata.
+- Reconciled all six master documents around current facts and new priority order. Defined proposed enclosure/report/aggregate/event contracts, contributor deduplication, confidence/expiry and two-device notification acceptance gates; no shared backend implemented.
+- Fourteen automated geofence/controller checks passed, including background pause, bounds configuration and long-gap reacquisition. Phone and Zoo-ground validation remain open. See PROTOTYPE_V0_2.md for policy and field checklist.
+- Local browser verified v0.2 rendering, the approximate perimeter, mode UI and the minimum-zoom limit; attempted panning remained in the Zoo vicinity. Real phone layout, GPS and Zoo-ground behavior remain unverified.
+- GitHub checkpoint and v0.2 live verification are recorded after publication below.
+
+
 ## October 11, 2026 — Version 0.1 development
 
 - Read the six master documents from repository baseline b21bcc4 in a separate cloned checkout, leaving synced project reference files untouched.

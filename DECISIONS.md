@@ -1,18 +1,22 @@
 # Decisions
 
-Established October 11, 2026. Approval here means project-owner approval, not official Zoo approval.
+Updated October 13, 2026. Owner approval does not imply Zoo approval.
 
-## Version 0.1 scope confirmed October 11, 2026
-
-The owner selected `bigblue1932/philadelphia-zoo-map`, Leaflet.js, OpenStreetMap, and GitHub Pages. Version 0.1 includes an interactive Zoo-centered map, GPS detection, live tracking, reported accuracy, mobile controls, and permission/error handling. The official pedestrian pathway map is deferred. This supersedes the earlier statements that the repository and map stack remain unselected; other draft review points remain open. Implementation details and validation are recorded in PROTOTYPE_V0_1.md.
-
-| ID | Status | Decision or proposal | Evidence |
+| ID | Status | Decision | Evidence |
 | --- | --- | --- | --- |
-| D-001 | Confirmed | Independent, low-cost, Waze-style visitor-app proof of concept. | Owner initialization request, October 11, 2026. |
-| D-002 | Confirmed | Preserve navigation, sightings, GPS, accessible pathways, quiet exhibits, notifications, and public safety scope. | Same request; R-02 through R-08. |
-| D-003 | Confirmed | Immediate milestone: browser map, GitHub Pages test publication, phone GPS test on Zoo grounds. | Same request. |
-| D-004 | Confirmed | Six master documents and preparation for GitHub version-controlled backup. | Same request. |
-| D-005 | Proposed | Static client with location processed on the device for M1. | Initial architecture proposal; awaits review. |
-| D-006 | Proposed | M1 acceptance criteria in PROJECT_MASTER.md. | Initial draft; awaits review. |
+| D-001 | Confirmed | Independent low-cost visitor-app proof of concept. | Owner initialization, October 11. |
+| D-002 | Confirmed | Preserve navigation, sightings, GPS, accessibility, quiet exhibits, notices and safety scope. | October 11 initialization. |
+| D-003 | Confirmed | Browser map, GitHub Pages publication and Zoo-ground phone validation. | October 11 initialization. |
+| D-004 | Confirmed | Six master documents and GitHub backup. | October 11 initialization. |
+| D-005 | Implemented proposal | Static client processes GPS in memory with no location-history backend. | v0.1 implementation; consistent with current owner GPS scope. |
+| D-006 | Proposed | Initial M1 acceptance criteria and formal proceed/revise/pause field gate. | October 11 master draft; field results pending. |
+| D-007 | Confirmed | Repository bigblue1932/philadelphia-zoo-map; Leaflet, OSM and Pages. | Owner request, October 11. |
+| D-008 | Confirmed | Official pedestrian pathways are incorporated later. | October 11 owner request; no new pathway authorization. |
+| D-009 | Confirmed | GPS geofencing, off-site mode, map restrictions and accuracy safeguards take first priority. | Owner request, October 13. |
+| D-010 | Confirmed | Implement GPS safeguards during this checkpoint. | Owner response “Also implement GPS safeguards now”, October 13. |
+| D-011 | Confirmed | Next milestone includes distinct enclosures, aggregation, confidence and live map updates. | October 13 request; morning chat user statements on shared reports, duplicate dots and separate bear sections. |
+| D-012 | Provisional implementation | Use OSM perimeter snapshot, 50 m accuracy cap, 10 m edge buffer, 30 s stale limit and two-fix confirmation; map bounds use 25% margin. | Engineering defaults in v0.2; no claim these were specified in the morning chat or field-approved. |
+| D-013 | Proposed | Shared service, privacy-preserving report deduplication, expiry and confidence rules. | ARCHITECTURE.md; vendor, costs, identity and scoring remain open. |
+| D-014 | Proposed | Real-time in-app notices with mute, deduplication, expiry and reconnect reconciliation. | ARCHITECTURE.md; does not select background push or emergency delivery. |
 
-Prior-conversation decisions remain unreconciled because their contents were not available. Record source, date, owner approval, rationale, and superseded decision IDs for future changes. Do not promote proposals based on implementation alone.
+The accessible portion of “WiFi Cellular Switch 񟿿” (October 13) supplies the owner's sightings examples; earlier parts of that morning conversation were not returned. Record new evidence explicitly and retain the distinction between confirmed feature scope, implemented provisional policies and future design proposals.
