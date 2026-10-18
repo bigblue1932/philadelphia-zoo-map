@@ -23,7 +23,7 @@ test('two timely fixes confirm modes; rapid duplicates cannot confirm', () => {
   }
   const gate=policy.create(ring); gate.inspect(fix(),100000);
   assert.equal(gate.inspect(fix(),100000).reason,'out-of-order');
-  assert.equal(gate.inspect(fix(39.975,-75.195,8,101000),101000).reason,'confirming');
+  assert.equal(gate.inspect(fix(39.975,-75.195,8,101000),101000).mode,'on-site');
 });
 test('invalid time and accuracy protections fail closed', () => {
   for (const reading of [fix(NaN),fix(91),fix(39,-181),fix(39,-75,0),fix(39,-75,-1),fix(39,-75,Infinity),fix(39,-75,8,102000)]) assert.equal(policy.create(ring).inspect(reading,100000).reason,'invalid');

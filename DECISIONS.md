@@ -42,3 +42,12 @@ The source is recovered design evidence provided to continue this work. No embed
 | D-022 | Confirmed scope | Implement initial Survey Mode. | Owner request October 13. |
 | D-023 | Implemented provisional design | Device-local draft collection; explicit storage opt-in and GeoJSON handoff; no staff role/submission/publish controls. | v0.3 implementation consistent with existing static architecture; authenticated backend remains unselected. |
 | D-024 | Provisional threshold | GPS survey capture needs confirmed on-site mode, positive accuracy at most 20 m and fix age at most 30 s; manual placement is separately labeled. | Engineering safeguard for field collection, not a guarantee of feature alignment; tune from field results. |
+
+## October 18 reliability and checkpointing
+
+| ID | Status | Decision | Evidence |
+| --- | --- | --- | --- |
+| D-025 | Confirmed scope | Implement Follow Me reliability fixes from October 18 discussion; resolve checkpointing first. | Owner current request; recovered technical requirements backup. |
+| D-026 | Implemented fix | Preserve following intent across temporary location-quality/lifecycle interruptions, resume automatically when eligible, and keep user control actionable during GPS tracking. | v0.3.2; updates prior uncertainty behavior without changing quality/geofence thresholds. |
+| D-027 | Verified recovery | Issue creation works; source checkpoints use committed Markdown, push and remote SHA verification. | Issue 1 and branch checkpoint 9f6c152; earlier issue-creation block did not reproduce and exact cause remains unknown. |
+| D-028 | Implementation verification | 26 automated tests and browser rendering/diagnostics checked; real phone acceptance remains pending. | FOLLOW_ME_RELIABILITY.md and tests. |

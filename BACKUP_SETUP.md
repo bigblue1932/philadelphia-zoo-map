@@ -1,6 +1,10 @@
 # GitHub Backup Setup
 
-The six master documents are the editable project baseline. No GitHub remote or repository visibility has been selected.
+The editable application and master documents live in the cloned repository `zoo-map` and on GitHub at https://github.com/bigblue1932/philadelphia-zoo-map (public). Synced project-reference copies outside the checkout remain read-only and may be older. This section supersedes the original initialization guidance below.
+
+For a checkpoint: inspect/fetch the remote, reconcile without overwriting work, commit intended code/docs on the appropriate branch, push, and verify the remote SHA matches the intended commit. Use an issue only to track work. Record tests and deployment separately; a pushed branch does not deploy GitHub Pages configured for main. An email backup is not a verified Git checkpoint. Exclude private location records, credentials and device survey exports.
+
+The October 18 checkpointing issue is recorded in docs/checkpoints/2026-10-18/README.md. The earlier issue-creation block did not reproduce; issue 1 was successfully created. The historical setup checklist below is retained for reference, with repository selection already completed.
 
 After reviewing the draft:
 

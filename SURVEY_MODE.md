@@ -38,3 +38,7 @@ Browser QA: manually saved a synthetic landmark and two-vertex path, rejected a 
 On your phone: collect a clearly labeled test point, a short path and a viewing-zone draft; check undo, off-site manual placement, GPS capture eligibility, export/import, storage opt-in and recovery. Remove test records when finished. Verify actual public landmarks/path observations and media/source rights before handing off real survey drafts for review.
 
 Implementation references: [Leaflet 1.9.4](https://leafletjs.com/reference.html), [browser localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), [GeoJSON RFC 7946](https://datatracker.ietf.org/doc/html/rfc7946). Map attribution/source remain in the application and zoo-boundary.js.
+
+## Follow Me update in v0.3.2
+
+Entering Survey Mode still intentionally pauses following via an explicit surveystart event. Temporary GPS uncertainty now retains visitor follow intent and resumes automatically after reliable fixes; GPS capture eligibility remains separate and unchanged. See FOLLOW_ME_RELIABILITY.md.

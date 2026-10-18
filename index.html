@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#163f35">
   <meta name="description" content="An independent Philadelphia Zoo map prototype with live phone location and accuracy.">
-  <title>Philadelphia Zoo Map · v0.3</title>
+  <title>Philadelphia Zoo Map · v0.3.2</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-  <link rel="stylesheet" href="styles.css?v=0.3.1">
+  <link rel="stylesheet" href="styles.css?v=0.3.2">
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script defer src="zoo-boundary.js?v=0.3.1"></script>
-  <script defer src="location-policy.js?v=0.3.1"></script>
-  <script defer src="survey-model.js?v=0.3.1"></script>
-  <script defer src="survey.js?v=0.3.1"></script>
-  <script defer src="app.js?v=0.3.1"></script>
+  <script defer src="zoo-boundary.js?v=0.3.2"></script>
+  <script defer src="location-policy.js?v=0.3.2"></script>
+  <script defer src="survey-model.js?v=0.3.2"></script>
+  <script defer src="survey.js?v=0.3.2"></script>
+  <script defer src="app.js?v=0.3.2"></script>
 </head>
 <body>
-  <header><div class="brand-icon" aria-hidden="true">⌖</div><div><h1>Philadelphia Zoo Map</h1><p>Explore at your own pace</p></div><span class="version">v0.3</span></header>
+  <header><div class="brand-icon" aria-hidden="true">⌖</div><div><h1>Philadelphia Zoo Map</h1><p>Explore at your own pace</p></div><span class="version">v0.3.2</span></header>
   <main>
     <section class="map-wrap" aria-label="Interactive Philadelphia Zoo map">
       <div id="map" aria-label="Map; use arrow keys to pan and plus or minus to zoom"></div>
@@ -29,8 +29,10 @@
       <p id="site-mode" class="site-mode" role="status">Explore mode · location not checked</p>
       <div class="metrics"><div><span class="metric-label">Reported accuracy</span><strong id="accuracy">—</strong></div><div><span class="metric-label">Last update</span><strong id="updated">—</strong></div></div>
       <div class="controls"><button id="tracking" class="primary">Start live GPS</button><button id="follow" aria-pressed="false" disabled>Follow me</button></div>
+      <p id="follow-status" class="small" role="status" aria-live="polite">Following is off. Start live GPS, then tap Follow me.</p>
+      <details><summary>Follow Me diagnostics</summary><p class="small">Last 30 state changes in this page only. Times and reason codes; no coordinates, stored logs or automatic uploads.</p><pre id="follow-log" class="follow-log"></pre></details>
       <p class="legend"><span class="location-key" aria-hidden="true"></span> Accepted position <span class="circle-key" aria-hidden="true"></span> Its accuracy radius</p>
-      <details><summary>Location help &amp; privacy</summary><p>Allow location access when your browser asks. If blocked, enable location for this site in browser settings and check your phone’s Location Services, then try again.</p><p>Keep this page open and your screen awake while walking. Phones may pause updates when locked or when this page is in the background. The blue circle shows the phone’s reported uncertainty; it is not a guarantee of your exact position.</p><p>The dashed perimeter is an approximate OpenStreetMap boundary. Near it, or with poor GPS, your on-site status stays uncertain. Follow me requires two fresh, accurate fixes clearly inside. Off-site mode keeps the map at the Zoo. This is a browsing aid, not proof of attendance or enclosure identity.</p><p>Live tracking stays in memory and clears when stopped. Survey Mode can capture individual fixes into draft observations, which remain until removed. Drafts can be exported or remembered on this device only when you choose. Nothing is uploaded by this app. Leaflet loads from unpkg; OpenStreetMap receives your IP address and viewed map areas.</p></details>
+      <details><summary>Location help &amp; privacy</summary><p>Allow location access when your browser asks. If blocked, enable location for this site in browser settings and check your phone’s Location Services, then try again.</p><p>Keep this page open and your screen awake while walking. Phones may pause updates when locked or when this page is in the background. The blue circle shows the phone’s reported uncertainty; it is not a guarantee of your exact position.</p><p>The dashed perimeter is an approximate OpenStreetMap boundary. Near it, or with poor GPS, your on-site status stays uncertain. Recentring requires two fresh, accurate fixes clearly inside. Your following choice is retained during temporary uncertainty. Off-site mode keeps the map at the Zoo. This is a browsing aid, not proof of attendance or enclosure identity.</p><p>Live tracking stays in memory and clears when stopped. Survey Mode can capture individual fixes into draft observations, which remain until removed. Drafts can be exported or remembered on this device only when you choose. Nothing is uploaded by this app. Leaflet loads from unpkg; OpenStreetMap receives your IP address and viewed map areas.</p></details>
       <details id="survey-panel" class="survey-panel">
         <summary>Survey Mode · draft map observations</summary>
         <p>Collect public map features for later review. This local prototype has no staff sign-in, approval or publication. Avoid personal or restricted information.</p>

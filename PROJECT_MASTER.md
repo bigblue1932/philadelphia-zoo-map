@@ -64,3 +64,7 @@ PROJECT_MASTER.md defines scope; ARCHITECTURE.md defines components/contracts; D
 ## Version 0.3 Survey Mode implementation
 
 Owner requested Survey Mode implementation October 13. The app now collects browser-local draft landmark/facility points, pathway segments and viewing-zone polygons with GPS/manual source evidence, field notes, unknown-or-observed surface/stairs attributes and proposed review labels. GPS capture requires confirmed on-site status with accuracy at most 20 m. Drafts are memory-only unless the user explicitly opts into device storage; GeoJSON export/import supports review handoff. No role, submission, approval or publication authority is implemented. See SURVEY_MODE.md. Real phone capture and Zoo-ground alignment remain unverified.
+
+## October 18 Follow Me reliability
+
+Field feedback reports generally accurate walking GPS but intermittent following loss and variable disabled-button time. Repository checkpoint recovery is documented in docs/checkpoints/2026-10-18/README.md. The dedicated fix branch implements v0.3.2: retained follow intent with waiting/automatic recovery, user-gesture pauses, old-callback protection, cache lifecycle recovery and bounded coordinate-free diagnostics. Location/geofence/survey thresholds remain unchanged; GIS matching stays separate. See FOLLOW_ME_RELIABILITY.md. 26 automated tests pass; actual post-fix phone/Zoo-walk acceptance remains pending.

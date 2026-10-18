@@ -58,7 +58,7 @@
       get('toggle').setAttribute('aria-pressed',String(value));
       get('toggle').textContent = value ? 'Exit Survey Mode' : 'Enter Survey Mode';
       get('editor').hidden = !value;
-      if (value) map.fire('dragstart'); // Pause visitor following before placing vertices.
+      if (value) map.fire('surveystart'); // Explicit mode change, not a synthetic user drag.
       refreshDrawing(); render(); refreshGPS();
       message(value ? 'Survey Mode active. Tap inside the approximate Zoo perimeter to place draft geometry.' : 'Survey Mode exited. Draft overlays are hidden; saved drafts remain available for export.');
     }

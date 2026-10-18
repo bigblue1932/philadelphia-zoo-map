@@ -3,7 +3,7 @@
   'use strict';
   const ZOO = [39.9725, -75.1957]; // Approximate overview; sources documented in README.
   const STALE_MS = 30000;
-  const ui = Object.fromEntries(['status', 'status-dot', 'message', 'accuracy', 'updated', 'tracking', 'follow', 'zoo', 'map-error', 'site-mode'].map(id => [id, document.getElementById(id)]));
+  const ui = Object.fromEntries(['status', 'status-dot', 'message', 'accuracy', 'updated', 'tracking', 'follow', 'follow-status', 'follow-log', 'zoo', 'map-error', 'site-mode'].map(id => [id, document.getElementById(id)]));
   const status = (title, message, state = '') => {
     ui.status.textContent = title;
     ui.message.textContent = message;
@@ -40,21 +40,42 @@
   let watchId = null, generation = 0, active = false, following = false, position = null, dot = null, circle = null, lastError = false;
   let eligible = false, readingTime = null;
   let survey = null;
-  const setFollow = value => {
-    following = value;
-    ui.follow.setAttribute('aria-pressed', String(value));
-    ui.follow.textContent = value ? 'Following you' : 'Follow me';
+  const followEvents = [];
+  let followState = '', followReason = 'initial';
+  const reliableForCamera = () => active && eligible && position && !document.hidden && Date.now() - position.timestamp <= STALE_MS;
+  const refreshFollow = reason => {
+    const state = !active ? 'off' : !following ? 'paused' : reliableForCamera() ? 'following' : 'waiting';
+    if (state !== followState || (reason && reason !== followReason)) {
+      followReason = reason || followReason;
+      followEvents.push({ time: Date.now(), state, reason: followReason });
+      if (followEvents.length > 30) followEvents.shift();
+      followState = state;
+    }
+    ui.follow.disabled = !active;
+    ui.follow.setAttribute('aria-pressed', String(following));
+    ui.follow.textContent = state === 'following' ? 'Following you' : state === 'waiting' ? 'Follow on · waiting' : 'Follow me';
+    if (ui['follow-status']) ui['follow-status'].textContent = {
+      off: 'Following is off. Start live GPS, then tap Follow me.',
+      paused: 'Following paused · tap Follow me to resume.',
+      following: 'Following is active.',
+      waiting: 'Following is on · waiting for a reliable on-site fix. It will resume automatically.'
+    }[state];
+    if (ui['follow-log']) ui['follow-log'].textContent = followEvents.map(event => `${event.time}  ${event.state}  ${event.reason}`).join('\n');
   };
-  const suspend = (mode = 'Location uncertain · exploring the Zoo') => {
+  const setFollow = (value, reason) => {
+    following = value;
+    refreshFollow(reason);
+  };
+  const suspend = (mode = 'Location uncertain · exploring the Zoo', reason = 'gps-uncertain') => {
     eligible = false;
-    setFollow(false);
-    ui.follow.disabled = true;
+    refreshFollow(reason);
     ui['site-mode'].textContent = mode;
     if (dot) dot.setStyle({ opacity: 0.45, fillOpacity: 0.35 });
     if (circle) circle.setStyle({ opacity: 0.25, fillOpacity: 0.04 });
     survey?.refreshGPS();
   };
   const renderAge = () => {
+    refreshFollow();
     survey?.refreshGPS();
     if (readingTime === null) return;
     const age = Math.max(0, Date.now() - readingTime);
@@ -62,7 +83,7 @@
     const stale = age > STALE_MS;
     if (active && stale) {
       policy.uncertain('stale');
-      suspend();
+      suspend(undefined, 'gps-stale');
       if (!lastError) status('Location is stale', 'No fresh fix for 30 seconds. Following is paused; any faded dot is the last accepted position. Keep this page visible.', 'warning');
     }
   };
@@ -72,7 +93,8 @@
     if (watchId !== null) navigator.geolocation.clearWatch(watchId);
     watchId = null;
     policy.reset();
-    suspend('Explore mode · location not checked');
+    setFollow(false, 'gps-stopped');
+    suspend('Explore mode · location not checked', 'gps-stopped');
     ui.tracking.textContent = 'Start live GPS';
     if (dot) map.removeLayer(dot);
     if (circle) map.removeLayer(circle);
@@ -82,6 +104,7 @@
   };
   const onPosition = fix => {
     const result = policy.inspect(fix, Date.now());
+    if (result.ignored) { refreshFollow('gps-old-fix-ignored'); return; }
     const accuracy = fix?.coords?.accuracy;
     lastError = false;
     if (Number.isFinite(accuracy) && accuracy > 0) ui.accuracy.textContent = `± ${Math.round(accuracy)} m`;
@@ -90,7 +113,7 @@
       ui.updated.textContent = `${Math.max(0, Math.floor((Date.now() - readingTime) / 1000))}s ago`;
     }
     if (!result.usable) {
-      suspend(result.mode === 'off-site' ? 'Off-site mode · explore the Zoo remotely' : undefined);
+      suspend(result.mode === 'off-site' ? 'Off-site mode · explore the Zoo remotely' : undefined, `gps-${result.reason}`);
       if (result.mode === 'off-site') {
         if (dot) map.removeLayer(dot);
         if (circle) map.removeLayer(circle);
@@ -121,23 +144,33 @@
       circle.setLatLng(position.latlng).setRadius(accuracy);
     }
     ui.accuracy.textContent = `± ${Math.round(accuracy)} m`;
-    ui.follow.disabled = false;
+    refreshFollow('gps-ready');
     ui['site-mode'].textContent = 'On-site mode · approximate boundary check';
     dot.setStyle({ opacity: 1, fillOpacity: 1 });
     circle.setStyle({ opacity: 0.6, fillOpacity: 0.12 });
-    status('Live GPS · on-site', 'Your position updates as you walk. Tap Follow me to recenter. Dragging or uncertain GPS pauses following.', 'live');
-    if (following) map.setView(position.latlng, map.getZoom(), { animate: false });
+    status('Live GPS · on-site', 'Your position updates as you walk. Dragging pauses following; brief GPS uncertainty waits and resumes automatically.', 'live');
+    if (following && reliableForCamera()) map.setView(position.latlng, map.getZoom(), { animate: false });
     renderAge();
   };
   const onError = error => {
     lastError = true;
     policy.uncertain('error');
-    suspend();
+    suspend(undefined, error.code === 3 ? 'gps-timeout' : error.code === 1 ? 'gps-denied' : 'gps-unavailable');
     if (error.code === 1) {
       stop();
       status('Location permission denied', 'Enable location for this site in browser settings and check your phone’s Location Services, then tap Start live GPS again.', 'error');
     } else {
       status(error.code === 3 ? 'Waiting for a GPS fix' : 'Location unavailable', error.code === 3 ? 'The location request timed out. Tracking is still trying; move to an open area or stop and retry.' : 'Check Location Services and signal. Tracking is still trying; any visible marker is the last known position.', 'warning');
+    }
+  };
+  const startWatch = () => {
+    const token = ++generation;
+    try {
+      const id = navigator.geolocation.watchPosition(fix => { if (active && token === generation) onPosition(fix); }, error => { if (active && token === generation) onError(error); }, { enableHighAccuracy: true, maximumAge: 0, timeout: 15000 });
+      if (active && token === generation) watchId = id;
+      else navigator.geolocation.clearWatch(id);
+    } catch {
+      stop(); status('Location could not start', 'Check site permissions and try again. The map remains available.', 'error');
     }
   };
   ui.tracking.addEventListener('click', () => {
@@ -146,35 +179,51 @@
     if (!navigator.geolocation) { status('GPS is not supported', 'Try Safari or Chrome on your phone. You can still explore the map.', 'error'); return; }
     active = true;
     lastError = false;
-    const token = ++generation;
-    setFollow(false);
+    setFollow(false, 'gps-started');
     ui.tracking.textContent = 'Stop GPS';
     status('Finding your location', 'Allow location access when prompted. The first fix may take a little time.', 'warning');
-    try {
-      const id = navigator.geolocation.watchPosition(fix => { if (active && token === generation) onPosition(fix); }, error => { if (active && token === generation) onError(error); }, { enableHighAccuracy: true, maximumAge: 0, timeout: 15000 });
-      if (active && token === generation) watchId = id;
-      else navigator.geolocation.clearWatch(id);
-    } catch {
-      stop(); status('Location could not start', 'Check site permissions and try again. The map remains available.', 'error');
-    }
+    startWatch();
   });
   ui.follow.addEventListener('click', () => {
-    if (!eligible || !position || Date.now() - position.timestamp > STALE_MS) return;
-    setFollow(!following);
-    if (following && position) map.setView(position.latlng, map.getZoom(), { animate: false });
+    if (!active) return;
+    setFollow(!following, following ? 'user-off' : 'user-on');
+    if (following && reliableForCamera()) map.setView(position.latlng, map.getZoom(), { animate: false });
   });
-  map.on('dragstart', () => setFollow(false));
-  ui.zoo.addEventListener('click', () => { setFollow(false); overview(); });
-  const timer = setInterval(renderAge, 1000);
+  // Leaflet dragstart is a real drag, unlike movestart from setView/panTo.
+  map.on('dragstart', () => setFollow(false, 'user-drag'));
+  map.on('keydown', event => {
+    if (['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.originalEvent?.key)) setFollow(false, 'user-keyboard-pan');
+  });
+  map.on('surveystart', () => setFollow(false, 'survey-mode'));
+  ui.zoo.addEventListener('click', () => { setFollow(false, 'zoo-overview'); overview(); });
+  let timer = setInterval(renderAge, 1000);
   document.addEventListener('visibilitychange', () => {
     if (document.hidden && active) {
-      policy.uncertain('background'); suspend();
-      status('Following paused', 'The page was in the background. Waiting for two reliable location updates before following is available again.', 'warning');
+      policy.uncertain('background'); suspend(undefined, 'background');
+      status('GPS waiting', 'The page is in the background. Your following choice is retained; reliable updates are needed before recentering.', 'warning');
     }
-    else { map.invalidateSize(); renderAge(); }
+    else {
+      map.invalidateSize(); renderAge();
+      if (following && reliableForCamera()) map.setView(position.latlng, map.getZoom(), { animate: false });
+    }
   });
-  window.addEventListener('pagehide', () => { stop(); clearInterval(timer); });
-  window.addEventListener('pageshow', event => { if (event.persisted) window.location.reload(); });
+  window.addEventListener('pagehide', event => {
+    if (event.persisted && active) {
+      // BFCache navigation suspends the watcher but retains the user's intent.
+      generation++;
+      if (watchId !== null) navigator.geolocation.clearWatch(watchId);
+      watchId = null;
+      policy.uncertain('background'); suspend(undefined, 'page-suspended');
+    } else stop();
+    clearInterval(timer);
+  });
+  window.addEventListener('pageshow', event => {
+    if (!event.persisted) return;
+    timer = setInterval(renderAge, 1000);
+    map.invalidateSize(); renderAge();
+    if (active) startWatch();
+  });
+  refreshFollow('initial');
   if (window.ZooSurvey && window.ZooSurveyModel) {
     survey = window.ZooSurvey.mount(map, () => active && eligible ? position : null, window.ZooBoundary.ring);
   } else {
