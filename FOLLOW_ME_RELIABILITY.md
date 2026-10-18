@@ -30,3 +30,7 @@ Browser preview verified versioned asset loading, map/controls, the initial foll
 4. Briefly switch apps or lock/unlock the screen. Confirm waiting then automatic recovery. Browsers may suspend GPS while locked; continuous background tracking is not promised.
 5. Verify Stop GPS clears readings/intent. Enter Survey Mode and verify it intentionally pauses camera following.
 6. If it stops unexpectedly, note the displayed follow state and relevant reason codes, approximate signal conditions and phone/browser. Do not upload precise location traces. Actual Zoo-walk acceptance remains pending until results are supplied.
+
+## Deployment record
+
+Merged [PR 2](https://github.com/bigblue1932/philadelphia-zoo-map/pull/2) at 9722d8e; live [GitHub Pages app](https://bigblue1932.github.io/philadelphia-zoo-map/) browser-verified October 18 with v0.3.2 and matching assets/diagnostics. Field walk remains pending.

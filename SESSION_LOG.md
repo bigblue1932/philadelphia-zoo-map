@@ -7,7 +7,7 @@
 - Created codex/follow-me-reliability and pushed/verified requirements checkpoint 9f6c152 before code edits. Refreshed BACKUP_SETUP.md to distinguish actual source checkpoints, issue tracking, deployment and synced read-only references.
 - Confirmed suspend() erased following intent/disabled its button on uncertainty, consistent with the intermittent field symptom. Implemented v0.3.2 intent/eligibility separation, immediate user control, automatic recovery, old-callback handling, BFCache watcher recovery, explicit survey/gesture pause reasons and 30-entry in-memory diagnostics without coordinates.
 - 26 tests pass, including normal simulated walking, transient GPS/errors/stale states, foreground/BFCache/late callback races, taps/programmatic moves versus explicit gestures, and existing Survey Mode contracts. Browser preview verified release UI/map and diagnostics without collecting personal GPS.
-- Post-fix real phone/Zoo-walk acceptance remains pending; no GIS snapping, geofence redesign or accuracy guarantee claimed. Deployment/merge evidence is recorded separately after publication.
+- Post-fix real phone/Zoo-walk acceptance remains pending; no GIS snapping, geofence redesign or accuracy guarantee claimed. Merged PR 2 at 9722d8e after 26 passing tests and browser checks. Verified live v0.3.2 and diagnostics initialization on GitHub Pages October 18; local main synchronized. Field acceptance remains open in issue 1.
 
 
 ## October 13, 2026 — Survey Mode v0.3

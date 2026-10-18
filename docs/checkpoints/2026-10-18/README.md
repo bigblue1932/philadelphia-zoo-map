@@ -26,3 +26,7 @@ Confirmed app.js suspend() currently clears following and disables the control o
 Work on codex/follow-me-reliability from baseline 6a9f529. Separate following intent from fix eligibility, add targeted regressions and reason diagnostics, verify in browser, then merge/publish only after checks pass. Actual Zoo-walk acceptance remains a separate user/device field gate.
 
 The October 18 discussion also mentions an October 19 GIS discovery meeting: authoritative pedestrian centerlines/connectivity, boundaries, CRS, formats, updates and public-use rights. No new GIS data or path snapping is implemented by this fix.
+
+## Delivered and verified
+
+Requirements checkpoint 9f6c152 was pushed and verified before code changes. Implementation 006973b passed 26 tests and browser rendering/diagnostics checks, then merged through PR 2 as 9722d8ed3c0ea48b7115c8bec4fc738e00d230d6. The local main checkout was fast-forwarded to that merge. GitHub Pages was browser-verified on October 18: v0.3.2, matching versioned assets, Follow Me state feedback and live diagnostics initialization. No personal GPS was collected in browser verification. Actual phone/Zoo-walk acceptance remains pending under issue 1.
