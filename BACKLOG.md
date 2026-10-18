@@ -48,3 +48,10 @@ The source identifies domains and roles, but does not select actual staff accoun
 ## Survey Mode v0.3 status
 
 B-26 now has implemented local draft collection, source evidence, review labels, undo/show/remove, opt-in persistence and GeoJSON export/import. Automated/browser checks pass; phone field validation and authenticated submission/map/domain approval remain open. This does not complete the geographic publication gate in B-26.
+
+## October 18 Follow Me reliability
+
+| ID | Status | Work | Acceptance |
+| --- | --- | --- | --- |
+| B-32 | Checkpoint recovered | GitHub checkpointing | Updated checkout from 6a9f529; issue creation succeeded; checkpoint 9f6c152 verified remotely on dedicated branch. |
+| B-33 | Implemented; field acceptance pending | Follow Me reliability | Retain intent through quality loss; resume automatically; deliberate pan pauses; taps/programmatic moves do not; actionable control, lifecycle race protection, coordinate-free reason diagnostics. 26 checks pass. |

@@ -1,5 +1,7 @@
 # Philadelphia Zoo Map
 
+Version 0.3.2 improves Follow Me reliability: retain intent during temporary GPS uncertainty and resume automatically when reliable fixes return. See [FOLLOW_ME_RELIABILITY.md](FOLLOW_ME_RELIABILITY.md).
+
 Version 0.3 adds browser-local Survey Mode to the Leaflet/OpenStreetMap prototype. Collect draft points, paths and viewing zones with GPS/manual evidence; opt into device storage or export/import GeoJSON. Drafts never change the published map.
 
 Live: https://bigblue1932.github.io/philadelphia-zoo-map/

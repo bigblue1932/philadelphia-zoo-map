@@ -25,3 +25,7 @@ This adds the recovered conservation sequence to the prior roadmap. Shared sight
 ## Survey Mode implementation checkpoint
 
 Initial draft collection is implemented in v0.3; phone/field acceptance remains open. The next conservation step is the first-class content model and authenticated editor/approval service. Survey exports can seed proposed geometry with evidence after Map Approver/domain review; they cannot publish themselves. Brochure alignment, richer measured accessibility attributes and operational integration remain future work.
+
+## October 18 immediate field reliability gate
+
+Prioritize v0.3.2 Follow Me reliability verification on the Zoo phone before interpreting further walking tests. Check automatic recovery, deliberate-panning pause, no tap/programmatic cancellations and foreground return. This fix is independent of ZMAP-GEO-001 pathway matching and GIS acquisition. Conservation, Survey Mode and shared sightings remain in their existing workstreams.

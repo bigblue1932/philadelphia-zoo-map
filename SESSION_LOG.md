@@ -1,5 +1,15 @@
 # Session Log
 
+## October 18, 2026 — Checkpoint recovery and Follow Me fix
+
+- Verified GitHub repository permissions and initially empty issue collection. Local e83ca3d was two docs commits behind main; fetched and fast-forwarded to 6a9f529, preserving context and GIS design. No divergent or uncommitted local work existed.
+- Read the available October 18 morning chat and recovered the relevant emailed requirements backup. Did not copy email addressing/headers or personal location into the repository, and sent no email/messages. Prior issue-creation block cause could not be recovered; issue creation now succeeded as issue 1.
+- Created codex/follow-me-reliability and pushed/verified requirements checkpoint 9f6c152 before code edits. Refreshed BACKUP_SETUP.md to distinguish actual source checkpoints, issue tracking, deployment and synced read-only references.
+- Confirmed suspend() erased following intent/disabled its button on uncertainty, consistent with the intermittent field symptom. Implemented v0.3.2 intent/eligibility separation, immediate user control, automatic recovery, old-callback handling, BFCache watcher recovery, explicit survey/gesture pause reasons and 30-entry in-memory diagnostics without coordinates.
+- 26 tests pass, including normal simulated walking, transient GPS/errors/stale states, foreground/BFCache/late callback races, taps/programmatic moves versus explicit gestures, and existing Survey Mode contracts. Browser preview verified release UI/map and diagnostics without collecting personal GPS.
+- Post-fix real phone/Zoo-walk acceptance remains pending; no GIS snapping, geofence redesign or accuracy guarantee claimed. Deployment/merge evidence is recorded separately after publication.
+
+
 ## October 13, 2026 — Survey Mode v0.3
 
 - Owner requested implementation of Survey Mode. Used the reconciled governance architecture and kept staff authorization/publication separate from field drafts.

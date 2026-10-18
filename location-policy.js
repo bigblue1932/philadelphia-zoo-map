@@ -39,9 +39,10 @@
       const { latitude, longitude, accuracy } = coords;
       const timestamp = fix?.timestamp;
       if (![latitude, longitude, accuracy, timestamp].every(Number.isFinite) || Math.abs(latitude) > 90 || Math.abs(longitude) > 180 || accuracy <= 0 || timestamp < 0 || timestamp > now + 1000) return uncertain('invalid');
+      // Delayed/duplicate callbacks must not revoke a newer reliable fix.
+      if (previous && timestamp <= previous.timestamp) return { mode, reason: 'out-of-order', usable: false, ignored: true };
       if (now - timestamp > options.staleMs) return uncertain('stale');
       if (accuracy > options.maxAccuracy) return uncertain('accuracy');
-      if (previous && timestamp <= previous.timestamp) return uncertain('out-of-order');
       const latlng = [latitude, longitude];
       if (previous && timestamp - previous.timestamp <= options.staleMs && distance(previous.latlng, latlng) > Math.max(options.jumpFloor, options.maxSpeed * (timestamp - previous.timestamp) / 1000 + previous.accuracy + accuracy)) return uncertain('jump');
       if (previous && timestamp - previous.timestamp > options.staleMs) { mode = 'uncertain'; pending = null; }
