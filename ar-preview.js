@@ -18,11 +18,15 @@ function mount(getFix) {
  const open=document.getElementById('ar-open'), panel=document.getElementById('ar-panel'), close=document.getElementById('ar-close'), video=document.getElementById('ar-video'), arrow=document.getElementById('ar-arrow'), status=document.getElementById('ar-status'), target=document.getElementById('ar-target'), distance=document.getElementById('ar-distance'), headingText=document.getElementById('ar-heading'), select=document.getElementById('ar-destination');
  if (!open || !panel) return;
  destinations.forEach((d,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=d.name;select.append(option);});
- let stream=null,heading=null,orientationEnabled=false,frame=null;
+ const diagnostics={camera:document.getElementById('ar-diag-camera'),gps:document.getElementById('ar-diag-gps'),compass:document.getElementById('ar-diag-compass'),permission:document.getElementById('ar-diag-permission')};
+ let stream=null,heading=null,orientationEnabled=false,frame=null,compassSource='none';
  function update() {
   if(panel.hidden)return;
   const fix=getFix(),d=destinations[Number(select.value)||0];
   target.textContent=d.name;
+  diagnostics.camera.textContent='Camera: '+(stream?.getVideoTracks().some(t=>t.readyState==='live')?'active':'unavailable / stopped');
+  diagnostics.gps.textContent='GPS: '+(!fix?'no accepted on-site fix':(Date.now()-fix.timestamp>30000?'stale':fix.accuracy>50?'low accuracy':'accepted')+' · ±'+Math.round(fix.accuracy)+' m · '+Math.max(0,Math.round((Date.now()-fix.timestamp)/1000))+' s old');
+  diagnostics.compass.textContent='Compass: '+(heading===null?'unavailable / not calibrated':Math.round(heading)+'° · '+compassSource);
   if(!fix || Date.now()-fix.timestamp>30000 || fix.accuracy>50) {
    distance.textContent='GPS unavailable or uncertain';arrow.hidden=true;
    status.textContent='Start live GPS and wait for a reliable on-site fix. No route guidance is available.';
@@ -40,29 +44,31 @@ function mount(getFix) {
   frame=setTimeout(update,500);
  }
  function orient(event) {
-  if(typeof event.webkitCompassHeading==='number' && Number.isFinite(event.webkitCompassHeading) && event.webkitCompassAccuracy<=45) heading=normalize(event.webkitCompassHeading);
-  else if(event.absolute===true && Number.isFinite(event.alpha)) heading=normalize(360-event.alpha);
-  else heading=null;
+  if(typeof event.webkitCompassHeading==='number' && Number.isFinite(event.webkitCompassHeading) && event.webkitCompassAccuracy<=45) {heading=normalize(event.webkitCompassHeading);compassSource='iOS compass';}
+  else if(event.absolute===true && Number.isFinite(event.alpha)) {heading=normalize(360-event.alpha);compassSource='absolute orientation';}
+  else {heading=null;compassSource='none';}
  }
  async function start() {
   if(!panel.hidden)return;
   panel.hidden=false;open.setAttribute('aria-expanded','true');status.textContent='Requesting camera permission…';
+  diagnostics.permission.textContent='Motion permission: checking';
   try {
    if(!root.isSecureContext || !navigator.mediaDevices?.getUserMedia) throw Error('Camera requires a supported HTTPS browser.');
    if(typeof DeviceOrientationEvent!=='undefined' && typeof DeviceOrientationEvent.requestPermission==='function') {
     try {orientationEnabled=(await DeviceOrientationEvent.requestPermission())==='granted';} catch {orientationEnabled=false;}
    } else orientationEnabled=true;
+   diagnostics.permission.textContent='Motion permission: '+(orientationEnabled?'allowed or not explicitly required':'denied / unavailable');
    if(orientationEnabled)root.addEventListener('deviceorientationabsolute',orient);
    if(orientationEnabled)root.addEventListener('deviceorientation',orient);
    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});
    video.srcObject=stream;await video.play();
-  } catch(err) {status.textContent='Camera unavailable: '+(err?.message||'permission denied')+'. Return to Map View.';}
+  } catch(err) {diagnostics.camera.textContent='Camera: '+(err?.name||'error');status.textContent='Camera unavailable: '+(err?.message||'permission denied')+'. Return to Map View.';}
   update();
  }
  function stop() {
   panel.hidden=true;open.setAttribute('aria-expanded','false');clearTimeout(frame);frame=null;
   root.removeEventListener('deviceorientationabsolute',orient);root.removeEventListener('deviceorientation',orient);
-  if(stream){stream.getTracks().forEach(track=>track.stop());stream=null;}video.pause();video.srcObject=null;heading=null;arrow.hidden=true;
+  if(stream){stream.getTracks().forEach(track=>track.stop());stream=null;}video.pause();video.srcObject=null;heading=null;compassSource='none';arrow.hidden=true;
  }
  open.addEventListener('click',start);close.addEventListener('click',stop);select.addEventListener('change',()=>{});
  document.addEventListener('visibilitychange',()=>{if(document.hidden && !panel.hidden)stop();});
