@@ -5,3 +5,13 @@
 .survey-panel{border-top:1px solid #cbd5c7;margin-top:12px;padding-top:6px}.survey-panel label:not(.remember):not(.import-label){display:block;margin:12px 0;font-size:13px;color:#183c33}.survey-panel input:not([type=checkbox]):not([type=file]),.survey-panel select,.survey-panel textarea{width:100%;font:inherit;padding:10px;border:1px solid #bccbbd;border-radius:7px;background:#fff;color:#183c33;min-height:44px;margin-top:4px}.survey-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.survey-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.survey-actions button{flex:1}.small{font-size:12px}.remember{display:flex;gap:8px;align-items:center;min-height:44px}.remember input{width:20px;height:20px}.import-label{border:1px solid #cbd5c7;border-radius:10px;padding:10px;background:#fff}.import-label input{display:block;max-width:100%;font-size:12px;margin-top:8px}.survey-list{list-style:none;padding:0}.survey-list li{border:1px solid #d9dfd2;border-left:4px solid #8242a0;border-radius:8px;padding:10px;margin:10px 0;overflow-wrap:anywhere}.survey-list strong{font-size:15px}.survey-list button{font-size:12px;margin:4px 4px 0 0}.survey-panel input:focus-visible,.survey-panel textarea:focus-visible,.survey-panel select:focus-visible{outline:3px solid #cf9529;outline-offset:2px}
 
 .follow-log{font:11px/1.5 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:160px;overflow:auto;background:#e9eee4;padding:8px;border-radius:6px}
+
+/* Isolated AR Preview styling */
+.ar-launch { margin: 1rem 0; }
+.ar-panel { margin: 1rem 0; padding: .8rem; border: 2px solid #47664c; border-radius: 12px; background: #f5f8f4; }
+.ar-panel[hidden], .ar-arrow[hidden] { display: none !important; }
+.ar-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-bottom: .6rem; }
+.ar-toolbar select { max-width: 100%; }
+.ar-camera { position: relative; width: 100%; height: min(52vh, 420px); overflow: hidden; border-radius: 10px; background: #16241d; }
+.ar-camera video { width: 100%; height: 100%; object-fit: cover; }
+.ar-arrow { position: absolute; top: 36%; left: calc(50% - 45px); width: 90px; text-align: center; font: bold 120px/1 system-ui; color: #fff; text-shadow: 0 3px 8px #000; transform-origin: center center; pointer-events: none; }
