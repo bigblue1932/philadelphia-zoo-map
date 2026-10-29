@@ -223,8 +223,7 @@
     map.invalidateSize(); renderAge();
     if (active) startWatch();
   });
-  refreshFollow('initial');\n  if (window.ZooARPreview) window.ZooARPreview.mount(() => active && eligible && position ? position : null);
-  if (window.ZooSurvey && window.ZooSurveyModel) {
+  refreshFollow('initial');\n  if (window.ZooSurvey && window.ZooSurveyModel) {
     survey = window.ZooSurvey.mount(map, () => active && eligible ? position : null, window.ZooBoundary.ring);
   } else {
     const notice = document.getElementById('survey-message');
