@@ -8,6 +8,26 @@
   <title>Philadelphia Zoo Map · v0.3.2</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="styles.css?v=0.3.5">
+  <script>
+  (() => {
+    const errors = [];
+    window.addEventListener('error', e => { errors.push(e.message || 'Resource failed'); }, true);
+    document.addEventListener('DOMContentLoaded', () => {
+      const panel = document.createElement('details');
+      panel.style.cssText = 'margin:12px;padding:12px;border:1px solid #789087;border-radius:10px;background:white;color:#183c33';
+      panel.innerHTML = '<summary>Map diagnostics</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere"></pre><button type="button">Copy diagnostic report</button>';
+      document.querySelector('.map-wrap').after(panel);
+      const report = panel.querySelector('pre');
+      const update = () => {
+        const map = document.getElementById('map'), size = map.getBoundingClientRect();
+        const tiles = [...map.querySelectorAll('img.leaflet-tile')];
+        report.textContent = 'Leaflet: ' + (!!window.L) + '\nMap initialized: ' + map.classList.contains('leaflet-container') + '\nContainer: ' + Math.round(size.width) + ' x ' + Math.round(size.height) + '\nTiles loaded: ' + tiles.filter(t => t.complete && t.naturalWidth).length + '/' + tiles.length + '\nErrors: ' + (errors.join('; ') || 'none observed');
+      };
+      panel.querySelector('button').onclick = async () => { update(); try { await navigator.clipboard.writeText(report.textContent); } catch (_) { panel.querySelector('button').textContent = 'Select report text to copy'; } };
+      update(); setInterval(update, 2000);
+    });
+  })();
+  </script>
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script defer src="zoo-boundary.js?v=0.3.2"></script>
   <script defer src="location-policy.js?v=0.3.2"></script>
